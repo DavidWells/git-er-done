@@ -21,7 +21,7 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
    *
    * @param filename The path of the file
    */
-  const JSONPatchForFile = async filename => {
+  const JSONPatchForFile = async (filename) => {
     // We already have access to the diff, so see if the file is in there
     // if it's not return an empty diff
     if (!gitJSONRep.modified_files.includes(filename)) {

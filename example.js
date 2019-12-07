@@ -27,6 +27,10 @@ async function run() {
   if (srcCode.edited) {
     console.log('srcCode has been edited')
   }
+  const diff = await git.diffForFile('src/debug.js')
+  console.log(diff)
+  const linesOfCode = await git.linesOfCode()
+  console.log(linesOfCode)
 }
 
 run()

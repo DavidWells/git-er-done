@@ -1,15 +1,16 @@
+const { readFileSync } = require("fs")
 const { gitJSONToGitDSL } = require("./git/gitJSONToGitDSL")
 const { diffToGitJSONDSL } = require("./git/diffToGitJSONDSL")
 const { localGetDiff } = require("./git/localGetDiff")
 const { localGetFileAtSHA } = require("./git/localGetFileAtSHA")
 const { localGetCommits } = require("./git/localGetCommits")
-const { readFileSync } = require("fs")
 
 class LocalGit {
   constructor(options) {
     this.options = options
-    this.getFileContents = path =>
-      new Promise(res => res(readFileSync(path, "utf8")))
+    this.getFileContents = path => {
+      return new Promise(res => res(readFileSync(path, "utf8")))
+    }
     this.name = "local git"
   }
   async getGitDiff() {
