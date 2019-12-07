@@ -1,11 +1,11 @@
-import parseDiff from "parse-diff";
-import includes from "lodash.includes";
+const parseDiff = require("parse-diff");
+const includes = require("lodash.includes");
 /**
  * This function is essentially a "go from a diff to some simple structured data"
  * it's the steps needed for danger process.
  */
 
-export const diffToGitJSONDSL = (diff, commits) => {
+module.exports.diffToGitJSONDSL = (diff, commits) => {
     const fileDiffs = parseDiff(diff);
     const addedDiffs = fileDiffs.filter((diff) => diff["new"]);
     const removedDiffs = fileDiffs.filter((diff) => diff["deleted"]);

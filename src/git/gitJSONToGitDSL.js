@@ -1,15 +1,15 @@
-import * as os from "os";
-import parseDiff from "parse-diff";
-import includes from "lodash.includes";
-import isobject from "lodash.isobject";
-import keys from "lodash.keys";
-import memoize from "lodash.memoize";
-import * as jsonDiff from "rfc6902";
-import jsonpointer from "jsonpointer";
-import JSON5 from "json5";
-import chainsmoker from "../chainsmoker";
+const os = require("os");
+const parseDiff = require("parse-diff");
+const includes = require("lodash.includes");
+const isobject = require("lodash.isobject");
+const keys = require("lodash.keys");
+const memoize = require("lodash.memoize");
+const jsonDiff = require("rfc6902");
+const jsonpointer = require("jsonpointer");
+const JSON5 = require("json5");
+const chainsmoker = require("../chainsmoker");
 
-export const gitJSONToGitDSL = (gitJSONRep, config) => {
+module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
     const getFullDiff = config.getStructuredDiffForFile
         ? null
         : memoize((base, head) => {

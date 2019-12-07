@@ -1,11 +1,11 @@
-import { gitJSONToGitDSL } from "./git/gitJSONToGitDSL";
-import { diffToGitJSONDSL } from "./git/diffToGitJSONDSL";
-import { localGetDiff } from "./git/localGetDiff";
-import { localGetFileAtSHA } from "./git/localGetFileAtSHA";
-import { localGetCommits } from "./git/localGetCommits";
-import { readFileSync } from "fs";
+const { gitJSONToGitDSL } = require("./git/gitJSONToGitDSL");
+const { diffToGitJSONDSL } = require("./git/diffToGitJSONDSL");
+const { localGetDiff } = require("./git/localGetDiff");
+const { localGetFileAtSHA } = require("./git/localGetFileAtSHA");
+const { localGetCommits } = require("./git/localGetCommits");
+const { readFileSync } = require("fs");
 
-export class LocalGit {
+class LocalGit {
     constructor(options) {
         this.options = options;
         this.getFileContents = (path) => new Promise(res => res(readFileSync(path, "utf8")));
@@ -79,3 +79,5 @@ export class LocalGit {
         return {};
     }
 }
+
+module.exports.LocalGit = LocalGit

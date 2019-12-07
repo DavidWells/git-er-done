@@ -1,8 +1,9 @@
-import { debug } from "../debug";
-import { spawn } from "child_process";
+const { debug } = require("../debug");
+const { spawn } = require("child_process");
+
 const d = debug("localGetDiff");
 
-export const localGetDiff = (base, head) => new Promise(done => {
+const localGetDiff = (base, head) => new Promise(done => {
     const args = ["diff", `${base}...${head}`];
     let stdout = "";
     const child = spawn("git", args, { env: process.env });
@@ -20,3 +21,5 @@ export const localGetDiff = (base, head) => new Promise(done => {
         }
     });
 });
+
+module.exports.localGetDiff = localGetDiff

@@ -1,6 +1,7 @@
-import { debug } from "../debug";
-import JSON5 from "json5";
-import { spawn } from "child_process";
+const { debug } = require("../debug");
+const JSON5 = require("json5");
+const { spawn } = require("child_process");
+
 const d = debug("localGetDiff");
 const sha = "%H";
 const parents = "%p";
@@ -14,9 +15,11 @@ const message = "%f"; // this is subject, not message, so it'll only be one line
 const author = `"author": {"name": "${authorName}", "email": "${authorEmail}", "date": "${authorDate}" }`;
 const committer = `"committer": {"name": "${committerName}", "email": "${committerEmail}", "date": "${committerDate}" }`;
 
-export const formatJSON = `{ "sha": "${sha}", "parents": "${parents}", ${author}, ${committer}, "message": "${message}"},`;
+const formatJSON = `{ "sha": "${sha}", "parents": "${parents}", ${author}, ${committer}, "message": "${message}"},`;
 
-export const localGetCommits = (base, head) => new Promise(done => {
+module.exports.formatJSON = formatJSON
+
+const localGetCommits = (base, head) => new Promise(done => {
     const args = ["log", `${base}...${head}`, `--pretty=format:${formatJSON}`];
     const child = spawn("git", args, { env: process.env });
     d("> git", args.join(" "));
@@ -33,3 +36,5 @@ export const localGetCommits = (base, head) => new Promise(done => {
         throw new Error(data.toString());
     });
 });
+
+module.exports.localGetCommits = localGetCommits

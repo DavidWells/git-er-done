@@ -1,8 +1,9 @@
-import { debug } from "../debug";
-import { exec } from "child_process";
+const { debug } = require("../debug");
+const { exec } = require("child_process");
+
 const d = debug("localGetFileAtSHA");
 
-export const localGetFileAtSHA = (path, _repo, sha) => new Promise(done => {
+const localGetFileAtSHA = (path, _repo, sha) => new Promise(done => {
     const call = `git show ${sha}:"${path}"`;
     d(call);
     exec(call, (err, stdout, _stderr) => {
@@ -14,3 +15,5 @@ export const localGetFileAtSHA = (path, _repo, sha) => new Promise(done => {
         done(stdout);
     });
 });
+
+module.exports.localGetFileAtSHA = localGetFileAtSHA

@@ -1,5 +1,4 @@
-import { LocalGit } from "./localGit"
-
+const { LocalGit } = require("./localGit")
 /*
 const CliArgs = {
   base: string
@@ -21,3 +20,5 @@ async function run() {
   const git = await localPlatform.getPlatformGitRepresentation()
   console.log('git', git)
 }
+
+run()

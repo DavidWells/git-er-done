@@ -1,10 +1,12 @@
 // Graciously vendored from
 // https://github.com/paulmelnikow/chainsmoker
 //
-import micromatch from "micromatch";
-import mapValues from "lodash.mapvalues";
+const micromatch = require("micromatch");
+const mapValues = require("lodash.mapvalues");
+
 const isExclude = (p) => p.startsWith("!");
-export default function chainsmoker(keyedPaths) {
+
+module.exports = function chainsmoker(keyedPaths) {
     function matchPatterns(patterns) {
         return mapValues(keyedPaths, (paths) => {
             const excludePatterns = patterns.filter(p => isExclude(p));
