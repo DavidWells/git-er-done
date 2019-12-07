@@ -7,5 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "json5": "^2.1.1",
+    "jsonpointer": "^4.0.1",
+    "lodash.includes": "^4.3.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.keys": "^4.2.0",
+    "lodash.mapvalues": "^4.6.0",
+    "lodash.memoize": "^4.1.2",
+    "micromatch": "^4.0.2",
+    "parse-diff": "^0.6.0",
+    "rfc6902": "^3.0.4"
+  }
 }
