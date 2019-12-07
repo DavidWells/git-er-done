@@ -33,7 +33,7 @@ class LocalGit {
     const base = this.options.base || "master"
     const head = "HEAD"
     const diff = await this.getGitDiff()
-    // console.log('diff', diff)
+    // Array of commits
     const commits = await localGetCommits(base, head)
     const gitJSON = diffToGitJSONDSL(diff, commits)
     const config = {
