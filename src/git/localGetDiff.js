@@ -3,7 +3,8 @@ const { spawn } = require("child_process");
 
 const d = debug("localGetDiff");
 
-const localGetDiff = (base, head) => new Promise(done => {
+const localGetDiff = (base, head) => {
+  return new Promise(done => {
     const args = ["diff", `${base}...${head}`];
     let stdout = "";
     const child = spawn("git", args, { env: process.env });
@@ -20,6 +21,7 @@ const localGetDiff = (base, head) => new Promise(done => {
             done(stdout);
         }
     });
-});
+  });
+}
 
 module.exports.localGetDiff = localGetDiff

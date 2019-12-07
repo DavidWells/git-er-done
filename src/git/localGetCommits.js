@@ -17,9 +17,8 @@ const committer = `"committer": {"name": "${committerName}", "email": "${committ
 
 const formatJSON = `{ "sha": "${sha}", "parents": "${parents}", ${author}, ${committer}, "message": "${message}"},`;
 
-module.exports.formatJSON = formatJSON
-
-const localGetCommits = (base, head) => new Promise(done => {
+const localGetCommits = (base, head) => {
+  return new Promise(done => {
     const args = ["log", `${base}...${head}`, `--pretty=format:${formatJSON}`];
     const child = spawn("git", args, { env: process.env });
     d("> git", args.join(" "));
@@ -35,6 +34,8 @@ const localGetCommits = (base, head) => new Promise(done => {
         console.error(`Could not get commits from git between ${base} and ${head}`);
         throw new Error(data.toString());
     });
-});
+  });
+}
 
+module.exports.formatJSON = formatJSON
 module.exports.localGetCommits = localGetCommits
