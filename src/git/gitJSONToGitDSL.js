@@ -1,13 +1,13 @@
-const os = require("os")
-const parseDiff = require("parse-diff")
-const includes = require("lodash.includes")
-const isobject = require("lodash.isobject")
-const keys = require("lodash.keys")
-const memoize = require("lodash.memoize")
-const jsonDiff = require("rfc6902")
-const jsonpointer = require("jsonpointer")
-const JSON5 = require("json5")
-const chainsmoker = require("../chainsmoker")
+const os = require('os')
+const parseDiff = require('parse-diff')
+const includes = require('lodash.includes')
+const isobject = require('lodash.isobject')
+const keys = require('lodash.keys')
+const memoize = require('lodash.memoize')
+const jsonDiff = require('rfc6902')
+const jsonpointer = require('jsonpointer')
+const JSON5 = require('json5')
+const chainsmoker = require('../chainsmoker')
 
 module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
   const getFullDiff = config.getStructuredDiffForFile
@@ -40,21 +40,21 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
     )
     // Parse JSON. `fileContents` returns empty string for files that are
     // missing in one of the refs, ie. when the file is created or deleted.
-    const baseJSON = baseFile === "" ? {} : JSON5.parse(baseFile)
-    const headJSON = headFile === "" ? {} : JSON5.parse(headFile)
+    const baseJSON = baseFile === '' ? {} : JSON5.parse(baseFile)
+    const headJSON = headFile === '' ? {} : JSON5.parse(headFile)
     // Tiny bit of hand-waving here around the types. JSONPatchOperation is
     // a simpler version of all operations inside the rfc6902 d.ts. Users
     // of danger wont care that much, so I'm smudging the classes slightly
     // to be ones we can add to the hosted docs.
     return {
-      before: baseFile === "" ? null : baseJSON,
-      after: headFile === "" ? null : headJSON,
+      before: baseFile === '' ? null : baseJSON,
+      after: headFile === '' ? null : headJSON,
       diff: jsonDiff.createPatch(baseJSON, headJSON)
     }
   }
   /**
    * Takes a path, generates a JSON patch for it, then parses that into something
-   * that's much easier to use inside a "DSL"" like the Dangerfile.
+   * that's much easier to use inside a 'DSL'' like the Dangerfile.
    *
    * @param filename path of the file
    */
@@ -69,11 +69,11 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
     return diff.reduce((accumulator, { path }) => {
       // We don't want to show the last root object, as these tend to just go directly
       // to a single value in the patch. This is fine, but not useful when showing a before/after
-      const pathSteps = path.split("/")
+      const pathSteps = path.split('/')
       const backAStepPath =
         pathSteps.length <= 2
           ? path
-          : pathSteps.slice(0, pathSteps.length - 1).join("/")
+          : pathSteps.slice(0, pathSteps.length - 1).join('/')
       const diff = {
         after: jsonpointer.get(after, backAStepPath) || null,
         before: jsonpointer.get(before, backAStepPath) || null
@@ -119,17 +119,17 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
     ])
     let additions = createdFilesDiffs
       .map(diff =>
-        !diff ? 0 : diff.added === "" ? 0 : diff.added.split("\n").length
+        !diff ? 0 : diff.added === '' ? 0 : diff.added.split('\n').length
       )
       .reduce((mem, value) => mem + value, 0)
     let deletions = deletedFilesDiffs
       .map(diff =>
-        !diff ? 0 : diff.removed === "" ? 0 : diff.removed.split("\n").length
+        !diff ? 0 : diff.removed === '' ? 0 : diff.removed.split('\n').length
       )
       .reduce((mem, value) => mem + value, 0)
     const modifiedLines = modifiedFilesDiffs.map(diff => [
-      !diff ? 0 : diff.added === "" ? 0 : diff.added.split("\n").length,
-      !diff ? 0 : diff.removed === "" ? 0 : diff.removed.split("\n").length
+      !diff ? 0 : diff.added === '' ? 0 : diff.added.split('\n').length,
+      !diff ? 0 : diff.removed === '' ? 0 : diff.removed.split('\n').length
     ])
     additions = modifiedLines.reduce((mem, value) => mem + value[0], additions)
     deletions = modifiedLines.reduce((mem, value) => mem + value[1], deletions)
@@ -189,11 +189,11 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
       ),
       diff: allLines.map(getContent).join(os.EOL),
       added: allLines
-        .filter(byType("add"))
+        .filter(byType('add'))
         .map(getContent)
         .join(os.EOL),
       removed: allLines
-        .filter(byType("del"))
+        .filter(byType('del'))
         .map(getContent)
         .join(os.EOL)
     }
@@ -205,14 +205,17 @@ module.exports.gitJSONToGitDSL = (gitJSONRep, config) => {
       deleted: gitJSONRep.deleted_files,
       edited: gitJSONRep.modified_files.concat(gitJSONRep.created_files)
     }),
-    modified_files: gitJSONRep.modified_files,
-    created_files: gitJSONRep.created_files,
-    deleted_files: gitJSONRep.deleted_files,
+    modifiedFiles: gitJSONRep.modified_files,
+    createdFiles: gitJSONRep.created_files,
+    deletedFiles: gitJSONRep.deleted_files,
     commits: gitJSONRep.commits,
+    /*
+    // disable other utils
     diffForFile,
     structuredDiffForFile,
     JSONPatchForFile,
     JSONDiffForFile,
+    */
     linesOfCode
   }
 }

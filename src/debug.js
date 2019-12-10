@@ -1,4 +1,4 @@
-const debugModule = require("debug")
+const debugModule = require('debug')
 
 const debug = value => {
   const d = debugModule(`danger:${value}`)
