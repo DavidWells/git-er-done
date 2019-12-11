@@ -4,7 +4,11 @@
   "description": "Utility for dealing with modified, created, deleted files since a git commit",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "author": "",
   "license": "MIT",
