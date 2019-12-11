@@ -1,36 +1,21 @@
-const { LocalGit } = require("./src/localGit")
-/*
-const CliArgs = {
-  base: string
-  verbose: string
-  externalCiProvider: string
-  textOnly: string
-  dangerfile: string
-  id: string
-}
-*/
+const util = require('util')
+const gitData = require('./src')
 
-/*
-const cliArgs = {
-  base: "develop",
-}*/
-const cliArgs = {}
+const GIT_COMMIT_REF = '9f63b23ec99e36a176d73909fc67a39dc3bd56b7'
 
-async function run() {
-  console.log('start')
-  // const localPlatform = new LocalGit(dsl.settings.cliArgs)
-  const localPlatform = new LocalGit(cliArgs)
-  console.log('localPlatform', localPlatform)
-  const git = await localPlatform.getPlatformGitRepresentation()
-  console.log('git', git)
-  const srcCode = git.fileMatch("**/*.js")
+gitData({
+  base: GIT_COMMIT_REF,
+}).then((git) => {
+  // Log object
+  console.log(util.inspect(git, { showHidden: false, depth: null }))
+
+  // Check if files we care about are modified
+  const srcCode = git.fileMatch('**/*.js')
+  console.log('srcCode', srcCode)
   if (srcCode.edited) {
     console.log('srcCode has been edited')
+    // Do stuff
   }
-  const diff = await git.diffForFile('src/debug.js')
-  console.log(diff)
-  const linesOfCode = await git.linesOfCode()
-  console.log(linesOfCode)
-}
+  console.log(srcCode.getKeyedPaths())
 
-run()
+})

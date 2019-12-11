@@ -1,13 +1,18 @@
 {
-  "name": "git-util",
-  "version": "1.0.0",
-  "description": "",
-  "main": "chainsmoker.js",
+  "name": "git-er-done",
+  "version": "0.0.1",
+  "description": "Utility for dealing with modified, created, deleted files since a git commit",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
   "dependencies": {
     "debug": "^4.1.1",
     "json5": "^2.1.1",
@@ -20,5 +25,9 @@
     "micromatch": "^4.0.2",
     "parse-diff": "^0.6.0",
     "rfc6902": "^3.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DavidWells/git-util"
   }
 }
