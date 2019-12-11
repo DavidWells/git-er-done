@@ -43,7 +43,7 @@ const localGetCommits = (base, head) => {
     child.on('close', (code) => {
       if (code === 0) {
         // console.log(`exit_code = ${code}`);
-        console.log('no commits found')
+        // console.log('no commits found')
         return done(realCommits)
       }
       // console.log(`exit_code = ${code}`);
