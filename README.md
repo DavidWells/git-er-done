@@ -1,5 +1,7 @@
 # Git Er Done
 
+> Moved package to https://github.com/DavidWells/components/tree/master/packages/util-git-info
+
 Utility for dealing with modified, created, deleted files since a git commit.
 
 ![image](https://user-images.githubusercontent.com/532272/70579463-909bd500-1b65-11ea-926f-bc31cb500ec7.png)
